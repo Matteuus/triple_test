@@ -1,16 +1,13 @@
 # triple_test
 
-A new Flutter project.
+Um projeto de teste com o triple pattern
 
-## Getting Started
+## Estrutura
 
-This project is a starting point for a Flutter application.
+o projeto esta com a seguinte estrutura:
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+lib/
+ - api/ - responsavel pela definição da api, url base e afins
+ - model/ - responsavel pelas classes modelos do projeto
+ - repository/ - responsavel pelas chamadas a api
+ - store/ - responsavel pelo controle de estado da aplicacao conectando a ui com o repository
