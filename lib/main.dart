@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:triple_test/repository/todoRepository.dart';
 import 'package:triple_test/store/TodoStore.dart';
 import 'package:flutter_triple/flutter_triple.dart';
+import 'package:shimmer/shimmer.dart';
 
 void main() {
   runApp(MyApp());
@@ -48,40 +49,58 @@ class _MyHomePageState extends State<MyHomePage> {
           IconButton(onPressed: todo.redo, icon: Icon(Icons.arrow_forward_ios)),
         ],
       ),
-      body: Center(
-        child: ScopedBuilder(
-          store: todo,
-          onLoading: (_) {
-            return CircularProgressIndicator();
-          },
-          onState: (_, state) {
-            return Container(
-              child: ListView.builder(
-                itemCount: todo.state.length,
-                itemBuilder: (context, index) {
-                  return Card(
-                    child: ListTile(
-                      leading: Text(todo.state[index].id.toString()),
-                      title: Text(todo.state[index].title!),
-                      trailing: todo.state[index].completed!
-                          ? Icon(
-                              Icons.check,
-                              color: Colors.green,
-                            )
-                          : Icon(
-                              Icons.close,
-                              color: Colors.red,
-                            ),
+      body: ScopedBuilder(
+        store: todo,
+        onLoading: (_) {
+          return ListView.builder(
+            itemCount: 10,
+            itemBuilder: (context, index) {
+              return Shimmer.fromColors(
+                baseColor: Colors.white,
+                highlightColor: Colors.grey.shade300,
+                child: Card(
+                  child: ListTile(
+                    title: Text(
+                      '',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 40.0,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  );
-                },
-              ),
-            );
-          },
-          onError: (_, error) {
-            return Text(error.toString());
-          },
-        ),
+                  ),
+                ),
+              );
+            },
+          );
+        },
+        onState: (_, state) {
+          return Container(
+            child: ListView.builder(
+              itemCount: todo.state.length,
+              itemBuilder: (context, index) {
+                return Card(
+                  child: ListTile(
+                    leading: Text(todo.state[index].id.toString()),
+                    title: Text(todo.state[index].title!),
+                    trailing: todo.state[index].completed!
+                        ? Icon(
+                            Icons.check,
+                            color: Colors.green,
+                          )
+                        : Icon(
+                            Icons.close,
+                            color: Colors.red,
+                          ),
+                  ),
+                );
+              },
+            ),
+          );
+        },
+        onError: (_, error) {
+          return Text(error.toString());
+        },
       ),
     );
   }

@@ -28,6 +28,7 @@ dependencies:
   flutter_triple:
   json_serializable:
   mobx_triple:
+  shimmer:
 
 dev_dependencies:
   flutter_test:
